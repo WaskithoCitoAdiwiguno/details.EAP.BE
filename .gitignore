@@ -1,0 +1,19 @@
+# Local runtime secrets / caches
+.env.local
+.env
+
+# Persisted model artifacts
+artifacts/
+
+# Training data (do not commit sensitive data)
+data/*
+!data/.gitkeep
+
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+*.egg
+.pytest_cache/
+.mypy_cache/
