@@ -218,7 +218,7 @@ def get_status() -> StatusResponse:
 
 @app.post("/train", response_model=TrainResponse)
 def run_train(body: TrainRequest = TrainRequest()) -> TrainResponse:
-    from .run_training import train_and_save
+    from run_training import train_and_save
 
     try:
         result = train_and_save(force=body.force, artifacts_dir=ARTIFACTS, data_dir=DATA)
@@ -246,7 +246,7 @@ def predict(body: PredictRequest) -> PredictResponse:
         raise HTTPException(status_code=400, detail="Model not trained yet. Call /train first.")
 
     try:
-        from .inference import predict_one
+        from inference import predict_one
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Prediction setup failed: {exc}") from exc
 
@@ -273,7 +273,7 @@ def predict(body: PredictRequest) -> PredictResponse:
 @app.post("/narrative", response_model=NarrativeResponse)
 def narrative(body: NarrativeRequest) -> NarrativeResponse:
     try:
-        from .narrative import generate_hr_narrative
+        from narrative import generate_hr_narrative
     except Exception as exc:
         raise HTTPException(status_code=500, detail=f"Narrative setup failed: {exc}") from exc
 

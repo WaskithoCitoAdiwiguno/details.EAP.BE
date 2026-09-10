@@ -22,17 +22,18 @@ Optional server-side fallback: set the `GROQ_API_KEY` environment variable
 (for example, as a Hugging Face Space secret). Without any key, prediction and
 SHAP still work; only the HR narrative degrades gracefully.
 
-## HF Space entrypoint
+## HF Space deployment (Docker SDK)
 
-A lightweight runner is provided at `run_space.py`. On a Hugging Face Space
-with SDK = Python, set the Space command to:
+The repo ships a `Dockerfile`, so it runs directly as a Hugging Face Space:
 
-```bash
-python backend/run_space.py
-```
+1. Create a Space (SDK = **Docker**, app port 7860).
+2. Paste the contents of `README.md.header` at the top of the Space's README
+   (this sets `sdk: docker` and `app_port: 7860`).
+3. Add the optional `GROQ_API_KEY` secret under Settings → Variables and secrets.
+4. Upload/push these files to the Space. Uvicorn serves `app:app` on port 7860.
 
-Or point the Space directly at `backend/app.py` if the Space supports a custom
-app entrypoint.
+The legacy `run_space.py` runner (SDK = Python, package layout) is kept for
+reference but is no longer the recommended path.
 
 ## Artifacts
 
